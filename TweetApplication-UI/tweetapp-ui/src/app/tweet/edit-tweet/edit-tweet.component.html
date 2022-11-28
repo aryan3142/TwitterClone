@@ -1,0 +1,24 @@
+<div class="wrapper">
+    <div class="wrapped-div">
+        <div class="tab-header">
+            <h2 style="color: #fff;">Edit Tweet</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <form [formGroup]="formModel" autocomplete="off" (submit)="onEdit()">
+                    <div class="form-group required">
+                        <label>Message</label>
+                        <input class="form-control" formControlName="Message" [defaultValue]="tweetText">
+                        <label class="text-danger" *ngIf="formModel.get('Message')?.touched && formModel.get('Message')?.errors?.['required']">Please enter message.</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-8 offset-md-2">
+                            <br>
+                          <button type="submit" class="btn btn-lg btn-block" [disabled]="!formModel.valid">Edit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

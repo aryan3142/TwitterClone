@@ -1,0 +1,20 @@
+
+{
+    "region" : "us-east-1",
+    "configuration" : "Release",
+    "framework"     : "netcoreapp3.1",
+    "self-contained" : false,
+    "application"    : "TweetApplication",
+    "environment"    : "TweetApplication-dev",
+    "enable-xray"    : false,
+    "enhanced-health-type" : "basic",
+    "additional-options"   : "\"aws:autoscaling:launchconfiguration,SecurityGroups\"=\"sg-083d7859c3c49de3c\";\"aws:ec2:vpc,Subnets\"=\"subnet-06e13089c9095288c\"",
+    "solution-stack"       : "64bit Amazon Linux 2 v2.3.5 running .NET Core",
+    "environment-type"     : "SingleInstance",
+    "cname"                : "tweetapplication-dev",
+    "instance-type"        : "t3a.medium",
+    "key-pair"             : "",
+    "instance-profile"     : "aws-elasticbeanstalk-ec2-role",
+    "service-role"         : "aws-elasticbeanstalk-service-role",
+    "proxy-server"         : "nginx"
+}

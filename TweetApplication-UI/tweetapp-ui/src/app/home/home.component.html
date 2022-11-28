@@ -1,0 +1,108 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3" id="nav-left">
+            <div class="card m-5" style="width:15rem" *ngIf="userDetails">
+                <ul class="list-group">
+                  <li class="list-group-item"><strong>Email : </strong>{{userDetails.emailId}}</li>
+                  <li class="list-group-item"><strong>FirstName : </strong>{{userDetails.firstName}}</li>
+                  <li class="list-group-item"><strong>LastName : </strong>{{userDetails.lastName}}</li>
+                </ul>
+              </div>
+              <div>
+                  <ul>
+                      <li><h3><strong>{{userDetails.firstName}} {{userDetails.lastName}}</strong></h3></li>
+                      <br><br>
+                      <li><strong><a class="my-tweets" routerLink="/tweet/my-tweets">My Tweets</a></strong></li>
+                      <br><br>
+                      <li><strong><a class="forgot-password" [routerLink]="['/user/reset-password']">Reset Password </a></strong></li>
+                      <br><br>
+                      <li><strong><a class="logout" (click)="onLogout()">Logout</a></strong></li>
+                      <br><br>
+                  </ul>
+              </div>
+        </div>
+        <div class="col-md-9">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="search" id="search-input" placeholder="Search By Username" name="searchUsername" 
+                        [(ngModel)]="searchTerm" (input)="searchByUsername(searchTerm)" autocomplete="off" 
+                        spellcheck="false" style="position: relative; vertical-align: top;width: 300px; margin-top: 5px; height: 40px;">
+                    </div>
+                    <div class="col-md-3">
+                        <button routerLink="/user" class="m-1 btn btn-light btn-outline-primary" style="margin-top: 20px; height: 40px; width: 200px;">View All Users</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button routerLink="/tweet/post-tweet" class="m-1 btn btn-light btn-outline-primary" style="margin-top: 20px; height: 40px; width: 200px;">Post New Tweet</button>
+                    </div>
+                </div>
+                <div class="card m-5" style="width:18rem" *ngIf="searchedTerm">
+                    <ul class="list-group">
+                      <li class="list-group-item"><strong>Email : </strong>{{searchedTerm.emailId}}</li>
+                      <li class="list-group-item"><strong>FirstName : </strong>{{searchedTerm.firstName}}</li>
+                      <li class="list-group-item"><strong>LastName : </strong>{{searchedTerm.lastName}}</li>
+                    </ul>
+                  </div>
+                <div class="container">
+                    <!-- <div class="card m-5" style="width:30rem;" *ngFor="let tweet of allTweets">
+                        <ul class="list-group">
+                          <li class="list-group-item"><strong>Email : </strong>{{tweet.nameWithHandle}}</li>
+                          <li class="list-group-item"><strong>FirstName : </strong>{{tweet.message}}</li>
+                          <li class="list-group-item"><strong>LastName : </strong>{{tweet.time}}</li>
+                        </ul>
+                    </div> -->
+                    <div class="card m-5" style="width:30rem;" *ngFor="let tweet of allTweets">
+                        <div class="card-header">
+                            <strong>{{tweet.username}}</strong>
+                            <!-- <img [src]="service.createImgPath(userDetails.profilePhoto)" alt="profile picture" style="width:60px; height:60px;"> -->
+                        </div>
+                        <div class="card-block">
+                            <p>
+                                Posted at {{tweet.dateAndTimeofTweet  | date: 'shortDate'}}
+                                <br>
+                                {{tweet.tweetMessage}}
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <button id="likebtn" (click)="onLike(tweet.id, userDetails.emailId)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" *ngIf="show"
+                                    class="bi bi-heart" viewBox="0 0 16 16">
+                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                </svg>
+                                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" *ngIf="show"
+                                    class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                </svg> -->
+                            </button>
+                            <span class="tweet-like" *ngIf="tweet.likes>0"> {{ tweet.likes }} </span>
+                        </div>
+                        <div class="card-footer">
+                            <button id="replybtn" (click)="onClickForm()" ng-show="!showForm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reply" viewBox="0 0 16 16">
+                                    <path d="M6.598 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.74 8.74 0 0 0-1.921-.306 7.404 7.404 0 0 0-.798.008h-.013l-.005.001h-.001L7.3 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L2.614 8.254a.503.503 0 0 0-.042-.028.147.147 0 0 1 0-.252.499.499 0 0 0 .042-.028l3.984-2.933zM7.8 10.386c.068 0 .143.003.223.006.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96v-.667z"/>
+                                  </svg>
+                            </button>
+                            <form (ngSubmit) = "onReply(tweet.id, userDetails.emailId, f)" #f="ngForm" *ngIf="showForm">
+                                <div class="tweetbox__input">
+                                    <textarea placeholder="Reply on tweet!" rows="3" 
+                                        name="replyText" ngModel required maxlength="144" #replyText="ngModel">
+                                    </textarea>
+                                    <!-- <textarea  id="" style="width: 100%; height: 200px; border: none;" placeholder="What's happening?"></textarea> -->
+                                </div>
+                                <button class="tweetBox__tweetButton"
+                                [disabled]="!f.valid">Reply</button>
+                            </form>
+                            Replies:
+                            <div class="replies" *ngFor="let reply of tweet.replies">
+                                <div class="each-reply">
+                                    <b>Username:</b> {{reply.username}}      {{reply.dateAndTimeOfReply | date: 'shortDate'}}<br>
+                                    {{reply.replyTweetText}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  

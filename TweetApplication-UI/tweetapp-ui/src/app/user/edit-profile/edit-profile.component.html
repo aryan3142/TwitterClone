@@ -1,0 +1,46 @@
+<div class="wrapper">
+    <div class="wrapped-div">
+        <div class="tab-header">
+            <h2 routerLink='/user/edit-profile' routerLinkActive='active'>Edit Profile</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div>
+                    <form [formGroup]="formModel" autocomplete="off" (submit)="onSubmit()" >
+                        <div class="form-group required">
+                            <label>First Name</label>
+                            <input class="form-control" formControlName="FirstName">
+                            <label class="text-danger" *ngIf="formModel.get('FirstName')?.touched && formModel.get('FirstName')?.errors?.['required']">Please enter first name.</label>
+                        </div>
+                        <div class="form-group required">
+                            <label>Last Name</label>
+                            <input class="form-control" formControlName="LastName">
+                            <label class="text-danger" *ngIf="formModel.get('LastName')?.touched && formModel.get('LastName')?.errors?.['required']">Please enter last name.</label>
+                        </div>
+                        <div class="form-group required">
+                            <label>Gender</label>
+                            <input class="form-control" formControlName="Gender">
+                            <label class="text-danger" *ngIf="formModel.get('Gender')?.touched && formModel.get('Gender')?.errors?.['required']">Please enter gender.</label>
+                        </div>
+                        <div class="form-group required">
+                            <label>Date Of Birth</label>
+                            <input type="date" class="form-control" formControlName="DateOfBirth">
+                            <label class="text-danger" *ngIf="formModel.get('DateOfBirth')?.touched && formModel.get('DateOfBirth')?.errors?.['required']">Please enter Date of Birth.</label>
+                        </div>
+                        <div class="form-group required">
+                            <label>Email</label>
+                            <input class="form-control" formControlName="EmailId">
+                            <label class="text-danger" *ngIf="formModel.get('EmailId')?.touched && formModel.get('EmailId')?.errors?.['required']">Please enter email.</label>
+                            <label class="text-danger" *ngIf="formModel.get('EmailId')?.touched && formModel.get('EmailId')?.errors?.['email']">Please enter valid email.</label>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-8 offset-md-2">
+                              <button type="submit" class="btn btn-lg btn-block" [disabled]="!formModel.valid">Sign Up</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

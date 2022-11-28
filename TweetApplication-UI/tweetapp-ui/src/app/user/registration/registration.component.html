@@ -1,0 +1,61 @@
+<div class="wrapper">
+    <div class="wrapped-div">
+        <div class="tab-header">
+            <h2 routerLink='/user/login' routerLinkActive='active'>Login</h2>
+            <h2 routerLink='/user/registration' routerLinkActive='active'>Register</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div>
+                    <form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()" >
+                        <div class="form-group required">
+                            <label>First Name</label>
+                            <input class="form-control" formControlName="FirstName">
+                            <!-- <label class="text-danger" *ngIf="service.formModel.get('FirstName')?.touched && service.formModel.get('FirstName')?.errors?.required">Please enter first name.</label> -->
+                            <label class="text-danger" *ngIf="service.formModel.get('FirstName')?.touched && service.formModel.get('FirstName')?.errors?.['required']">Please enter first name.</label>
+                        </div>
+                        <div class="form-group required">
+                            <label>Last Name</label>
+                            <input class="form-control" formControlName="LastName">
+                            <label class="text-danger" *ngIf="service.formModel.get('LastName')?.touched && service.formModel.get('LastName')?.errors?.['required']">Please enter last name.</label>
+                        </div>
+                        <div class="form-group required">
+                            <label>Gender</label>
+                            <input class="form-control" formControlName="Gender">
+                            <label class="text-danger" *ngIf="service.formModel.get('Gender')?.touched && service.formModel.get('Gender')?.errors?.['required']">Please enter gender.</label>
+                        </div>
+                        <div class="form-group required">
+                            <label>Date Of Birth</label>
+                            <input type="date" class="form-control" formControlName="DateOfBirth">
+                            <label class="text-danger" *ngIf="service.formModel.get('DateOfBirth')?.touched && service.formModel.get('DateOfBirth')?.errors?.['required']">Please enter Date of Birth.</label>
+                        </div>
+                        <div class="form-group required">
+                            <label>Email</label>
+                            <input class="form-control" formControlName="EmailId">
+                            <label class="text-danger" *ngIf="service.formModel.get('EmailId')?.touched && service.formModel.get('EmailId')?.errors?.['required']">Please enter email.</label>
+                            <label class="text-danger" *ngIf="service.formModel.get('EmailId')?.touched && service.formModel.get('EmailId')?.errors?.['email']">Please enter valid email.</label>
+                        </div>
+                        <div formGroupName="Passwords">
+                            <div class="form-group required">
+                                <label>Password</label>
+                                <input type="password" class="form-control" formControlName="Password">
+                                <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password')?.touched && service.formModel.get('Passwords.Password')?.errors?.['required']">Please enter password.</label>
+                            </div>
+                            <div class="form-group required">
+                                <label>Confirm Password</label>
+                                <input type="password" class="form-control" formControlName="ConfirmPassword">
+                                <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword')?.touched && service.formModel.get('Passwords.ConfirmPassword')?.errors?.['required']">Please enter confirm password.</label>
+                                <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword')?.touched && service.formModel.get('Passwords.ConfirmPassword')?.errors?.['passwordMismatch']">Password and confirm password must match.</label>
+                            </div>
+                        </div>
+                        <div class="form-row mt-2">
+                            <div class="form-group col-md-8 offset-md-2">
+                              <button type="submit" class="btn btn-lg btn-block btn-info mb-4" [disabled]="!service.formModel.valid">Sign Up</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

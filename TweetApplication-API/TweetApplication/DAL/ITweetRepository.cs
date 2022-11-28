@@ -1,0 +1,65 @@
+﻿using com.tweetapp.Models;
+using com.tweetapp.Models.Dtos;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace com.tweetapp.DAL
+{
+    public interface ITweetRepository
+    {
+        /// <summary>
+        /// Get all tweets
+        /// </summary>
+        /// <returns>Tweets</returns>
+        public Task<IEnumerable<Tweet>> GetAllTweets();
+
+        /// <summary>
+        /// Get user tweets
+        /// </summary>
+        /// <param name="username">User name</param>
+        /// <returns>Tweets</returns>
+        public Task<IEnumerable<Tweet>> GetUserTweets(string username);
+
+        /// <summary>
+        /// Add new tweet
+        /// </summary>
+        /// <param name="tweet">Tweet</param>
+        /// <returns>Tweet</returns>
+        public Task<Tweet> AddNewTweet(Tweet tweet);
+
+        /// <summary>
+        /// Update user tweet
+        /// </summary>
+        /// <param name="username">User name</param>
+        /// <param name="id">Id</param>
+        /// <param name="newMessage">New message</param>
+        /// <returns>Tweet</returns>
+        public Task<Tweet> UpdateTweet(string username, string id, string newMessage);
+
+        /// <summary>
+        /// Delete tweet
+        /// </summary>
+        /// <param name="username">User name</param>
+        /// <param name="id">Id</param>
+        /// <returns>True, if tweet is deleted successfully, False otherwise</returns>
+        public Task<bool> DeleteTweet(string username, string id);
+
+        /// <summary>
+        /// Like tweet
+        /// </summary>
+        /// <param name="username">User name</param>
+        /// <param name="id">Id</param>
+        /// <returns>Integer value representing number of likes on the tweet</returns>
+        public Task<int> LikeTweet(string username, string id);
+
+        /// <summary>
+        /// Reply tweet
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <param name="replyTweet">Reply tweet</param>
+        /// <returns>True if reply to tweet saved successfully, False otherwise</returns>
+        public Task<bool> Reply(string id, ReplyTweet replyTweet);
+    }
+}
